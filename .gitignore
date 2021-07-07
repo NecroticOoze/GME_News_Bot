@@ -1,0 +1,14 @@
+# Virtual Environments
+venv/
+
+# SQLite DB
+news_database.db
+
+# Testing Folders
+tests/
+
+# Secrets
+bot/config.py
+
+# Misc.
+__pycache__/
