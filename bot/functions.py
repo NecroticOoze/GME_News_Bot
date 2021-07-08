@@ -14,7 +14,7 @@ def get_gamestop_news():
 
     return parsed_news
 
-def check_update(news=get_gamestop_news()):
+def check_update(is_test, news=get_gamestop_news()):
 
     old_news_articles = [x.publication_date_and_time for x in NewsArticle.query()]
 
@@ -43,13 +43,16 @@ def check_update(news=get_gamestop_news()):
                 link = link
             )
 
-            post_to_superstonk(new_article)
+            if is_test:
+                post_to_superstonk(new_article, subreddit_name="testingground4bots")
+            else:
+                post_to_superstonk(new_article, subreddit_name="Superstonk")
 
             print("This News Article would be posted to r/Superstonk.")
 
             # break
 
-def post_to_superstonk(article):
+def post_to_superstonk(article, subreddit_name):
 
     print("Submitting article...")
 
@@ -61,7 +64,7 @@ def post_to_superstonk(article):
         password=PASSWORD
     )
 
-    subreddit = reddit.subreddit("testingground4bots")
+    subreddit = reddit.subreddit(subreddit_name)
 
     subreddit.submit(title=article.title, url=article.link)
 
